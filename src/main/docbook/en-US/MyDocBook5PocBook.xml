@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+
+<book xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd http://www.w3.org/1999/xlink http://www.docbook.org/xml/5.0/xsd/xlink.xsd"
+      xmlns="http://docbook.org/ns/docbook"
+      xmlns:ns="http://docbook.org/ns/docbook"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <title>DocBook v5 POC</title>
+    <subtitle>DocBook v5 POC (sub)</subtitle>
+
+    <info>
+        <releaseinfo>Version 1</releaseinfo>
+        <authorgroup>
+            <author>
+                <orgname><link xlink:href="http://www.jboss.org/drools/team.html">The JBoss Drools team</link></orgname>
+            </author>
+        </authorgroup>
+    </info>
+
+    <preface>
+        <title>Preface</title>
+        <para>
+            Working with both Object-Oriented software and Relational Databases can be cumbersome and time consuming...
+        </para>
+    </preface>
+
+    <chapter>
+        <title>Chapter 1</title>
+        <para>
+            Blah blah blah...
+        </para>
+    </chapter>
+
+    <index/>
+
+</book>

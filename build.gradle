@@ -1,0 +1,49 @@
+buildscript {
+  repositories {
+      mavenCentral()
+      mavenLocal()
+      mavenRepo name: "jboss", urls: "http://repository.jboss.org/nexus/content/groups/public/"
+  }
+  dependencies {
+      classpath 'org.jboss.jdocbook:gradle-jdocbook:1.1.0'
+  }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    mavenRepo name: 'jboss-nexus', urls: "https://repository.jboss.org/nexus/content/groups/public/"
+    mavenRepo name: "jboss-snapshots", urls: "http://snapshots.jboss.org/maven2/"
+}
+
+apply plugin: "base"
+apply plugin: "jdocbook"
+
+dependencies {
+	jdocbookStyles "org.jboss.pressgang:pressgang-xslt-ns:2.0.1"
+	jdocbookStyles "org.jboss.pressgang:pressgang-jdocbook-style:2.0.1"
+}
+
+defaultTasks 'buildDocs'
+
+jdocbook {
+
+    masterSourceDocumentName = 'MyDocBook5PocBook.xml'
+
+    transformerParameters = [:]
+    transformerParameters.put( "html.stylesheet", "css/hibernate.css" )
+
+    format('html_single') {
+		finalName = "index.html"
+		stylesheet = "classpath:/xslt/org/jboss/xhtml-single.xsl"
+	}
+	format('html') {
+		finalName = "index.html"
+        stylesheet = "classpath:/xslt/org/jboss/xhtml.xsl"
+	}
+}
+
+task wrapper(type: Wrapper) {
+    // HHH-6106 - this is needed for IntellJ generation until 1.0-milestone-3 is released.
+    gradleVersion = '1.0-milestone-3'
+}
