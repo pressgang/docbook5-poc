@@ -7,16 +7,22 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:xlink="http://www.w3.org/1999/xlink">
 
-    <title>DocBook v5 POC</title>
-    <subtitle>DocBook v5 POC (sub)</subtitle>
-
     <info>
+        <title>DocBook v5 POC</title>
+        <subtitle>DocBook v5 POC (sub)</subtitle>
         <releaseinfo>Version 1</releaseinfo>
         <authorgroup>
             <author>
                 <orgname><link xlink:href="http://www.jboss.org/drools/team.html">The JBoss Drools team</link></orgname>
             </author>
         </authorgroup>
+        <cover>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="org/hibernate/hibernatelogo.png"/>
+                </imageobject>
+            </mediaobject>
+        </cover>
     </info>
 
     <preface>

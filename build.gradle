@@ -5,7 +5,8 @@ buildscript {
       mavenRepo name: "jboss", urls: "http://repository.jboss.org/nexus/content/groups/public/"
   }
   dependencies {
-      classpath 'org.jboss.jdocbook:gradle-jdocbook:1.1.0'
+//      classpath 'org.jboss.jdocbook:gradle-jdocbook:1.1.0'
+      classpath 'org.jboss.jdocbook:gradle-jdocbook:1.1.1-SNAPSHOT'
   }
 }
 
@@ -27,11 +28,14 @@ dependencies {
 defaultTasks 'buildDocs'
 
 jdocbook {
-
     masterSourceDocumentName = 'MyDocBook5PocBook.xml'
 
-    transformerParameters = [:]
-    transformerParameters.put( "html.stylesheet", "css/hibernate.css" )
+    transformerParameter( "html.stylesheet", "css/hibernate.css" );
+// other ways to specify, both set completely new maps
+//    transformerParameters 'html.stylesheet': "css/hibernate.css"
+
+//    transformerParameters = [:]
+//    transformerParameters.put( "html.stylesheet", "css/hibernate.css" )
 
     format('html_single') {
 		finalName = "index.html"
@@ -44,6 +48,5 @@ jdocbook {
 }
 
 task wrapper(type: Wrapper) {
-    // HHH-6106 - this is needed for IntellJ generation until 1.0-milestone-3 is released.
     gradleVersion = '1.0-milestone-3'
 }

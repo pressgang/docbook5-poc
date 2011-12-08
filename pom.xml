@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.jboss.pressgang</groupId>
+    <artifactId>docbook5-poc-maven</artifactId>
+    <packaging>jdocbook</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.jboss.maven.plugins</groupId>
+                    <artifactId>maven-jdocbook-plugin</artifactId>
+                    <version>2.3.6</version>
+                    <extensions>true</extensions>
+
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.jboss.pressgang</groupId>
+                            <artifactId>pressgang-xslt-ns</artifactId>
+                            <version>2.0.1</version>
+                            </dependency>
+                        <dependency>
+                            <groupId>org.jboss.pressgang</groupId>
+                            <artifactId>pressgang-jdocbook-style</artifactId>
+                            <type>jdocbook-style</type>
+                            <version>2.0.1</version>
+                        </dependency>
+                    </dependencies>
+
+                    <configuration>
+                        <sourceDocumentName>MyDocBook5PocBook.xml</sourceDocumentName>
+                        <masterTranslation>en-US</masterTranslation>
+                        <imageResource>
+                            <directory>${basedir}/src/main/docbook/en-US</directory>
+                            <includes>
+                                <include>images/</include>
+                            </includes>
+                        </imageResource>
+                        <cssResource>
+                            <directory>${basedir}/src/main/docbook/en-US</directory>
+                            <includes>
+                                <include>css/</include>
+                            </includes>
+                        </cssResource>
+                        <formats>
+                            <format>
+                                <formatName>html_single</formatName>
+                                <stylesheetResource>classpath:/xslt/org/jboss/xhtml-single.xsl</stylesheetResource>
+                                <finalName>index.html</finalName>
+                            </format>
+                            <format>
+                                <formatName>html</formatName>
+                                <stylesheetResource>classpath:/xslt/org/jboss/xhtml.xsl</stylesheetResource>
+                                <finalName>index.html</finalName>
+                            </format>
+                        </formats>
+                        <injections>
+                            <injection>
+                                <name>project.version</name>
+                                <value>${project.version}</value>
+                            </injection>
+                        </injections>
+                        <options>
+                            <xmlTransformerType>saxon</xmlTransformerType>
+                            <xincludeSupported>true</xincludeSupported>
+                            <useRelativeImageUris>true</useRelativeImageUris>
+                            <docbookVersion>1.72.0</docbookVersion>
+                            <!-- <localeSeparator>-</localeSeparator> -->
+                        </options>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <!-- Entry needed to enable jdocbook packaging -->
+                <groupId>org.jboss.maven.plugins</groupId>
+                <artifactId>maven-jdocbook-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
