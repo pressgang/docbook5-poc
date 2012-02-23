@@ -9,6 +9,7 @@ buildscript {
       classpath( "org.jboss.jdocbook:gradle-jdocbook:1.1.3" ) {
 		  exclude group: 'net.sf.docbook'
 	  }
+	  classpath "org.jboss.pressgang:pressgang-highlight:2.0.1"
 //	  classpath( "org.jboss.pressgang:pressgang-xslt-ns:2.0.1" ) {
 //		  exclude group: 'net.sf.docbook'
 //	  }
