@@ -5,8 +5,14 @@ buildscript {
       mavenRepo name: "jboss", urls: "http://repository.jboss.org/nexus/content/groups/public/"
   }
   dependencies {
-//      classpath 'org.jboss.jdocbook:gradle-jdocbook:1.1.0'
-      classpath 'org.jboss.jdocbook:gradle-jdocbook:1.1.1-SNAPSHOT'
+	  classpath( "net.sf.docbook:docbook-xsl:1.76.0:ns-resources@zip" )
+      classpath( "org.jboss.jdocbook:gradle-jdocbook:1.1.4-SNAPSHOT" ) {
+		  exclude group: 'net.sf.docbook'
+	  }
+//	  classpath( "org.jboss.pressgang:pressgang-xslt-ns:2.0.1" ) {
+//		  exclude group: 'net.sf.docbook'
+//	  }
+//	  classpath "org.jboss.pressgang:pressgang-fonts:2.0.1"
   }
 }
 
@@ -21,8 +27,7 @@ apply plugin: "base"
 apply plugin: "jdocbook"
 
 dependencies {
-	jdocbookStyles "org.jboss.pressgang:pressgang-xslt-ns:2.0.1"
-	jdocbookStyles "org.jboss.pressgang:pressgang-jdocbook-style:2.0.1"
+//	jdocbookStyles "org.jboss.pressgang:pressgang-jdocbook-style:2.0.1"
 }
 
 defaultTasks 'buildDocs'
@@ -39,11 +44,25 @@ jdocbook {
 
     format('html_single') {
 		finalName = "index.html"
-		stylesheet = "classpath:/xslt/org/jboss/xhtml-single.xsl"
+		stylesheet = "classpath:/xslt/org/jboss/pressgang/xhtml-single.xsl"
 	}
 	format('html') {
 		finalName = "index.html"
-        stylesheet = "classpath:/xslt/org/jboss/xhtml.xsl"
+        stylesheet = "classpath:/xslt/org/jboss/pressgang/xhtml.xsl"
+	}
+	format('pdf') {
+        stylesheet = "classpath:/xslt/org/jboss/pressgang/pdf.xsl"
+	}
+}
+
+// stage the local styles...
+
+stageStyles.doLast {
+	logger.lifecycle( "Staging local style resources")
+	copy {
+		into project.file( "${project.buildDir}/docbook/stage" )
+		from project.file( 'src/main/style' )
+		includeEmptyDirs = false
 	}
 }
 

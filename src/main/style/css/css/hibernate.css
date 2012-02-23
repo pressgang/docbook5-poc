@@ -30,7 +30,7 @@ pre.XHTML {
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 body{
-	background-image:url(../images/org/hibernate/bkg_gradient.png);
+	background-image:url(../../images/images/org/hibernate/bkg_gradient.png);
     font-family:'Lucida Grande', Geneva, Verdana, Arial, sans-serif;
 }
 
@@ -39,7 +39,7 @@ a{
 }
 
 h1{
-	background-image:url(../images/org/hibernate/title_hdr.png);
+	background-image:url(../../images/images/org/hibernate/title_hdr.png);
 	color:#182737;
 }
 
@@ -52,13 +52,13 @@ h2,h3,h4,h5,h6{
     height:100px;
     width:362px;
     float:left;
-    background:url(../images/org/hibernate/hibernatelogo.png) top left no-repeat;
+    background:url(../../images/images/org/hibernate/hibernatelogo.png) top left no-repeat;
 }
 
 #title a.doc_href {
     display:block;
     height:100px;
-    background:transparent url(../images/org/hibernate/community_doc.png) top right no-repeat;
+    background:transparent url(../../images/images/org/hibernate/community_doc.png) top right no-repeat;
 }
 
 .releaseinfo {

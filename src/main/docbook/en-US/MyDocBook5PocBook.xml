@@ -30,9 +30,12 @@
         <para>
             Working with both Object-Oriented software and Relational Databases can be cumbersome and time consuming...
         </para>
+        <para>
+            See <xref linkend="myChapter"/>
+        </para>
     </preface>
 
-    <chapter>
+    <chapter xml:id="myChapter">
         <title>Chapter 1</title>
         <para>
             Blah blah blah...
