@@ -1,10 +1,7 @@
 <?xml version="1.0"?>
 
-
-<book xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd http://www.w3.org/1999/xlink http://www.docbook.org/xml/5.0/xsd/xlink.xsd"
-      xmlns="http://docbook.org/ns/docbook"
-      xmlns:ns="http://docbook.org/ns/docbook"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<book xmlns="http://docbook.org/ns/docbook"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
       xmlns:xlink="http://www.w3.org/1999/xlink">
 
     <info>
@@ -40,6 +37,18 @@
         <para>
             Blah blah blah...
         </para>
+        <example>
+            <info>
+                <title>A java snippet to illustrate highlighting</title>
+            </info>
+            <programlisting language="Java"><xi:include href="extras/AuditInterceptor.java" parse="text"/></programlisting>
+        </example>
+        <example>
+            <info>
+                <title>An XML snippet to illustrate highlighting</title>
+            </info>
+            <programlisting language="XML"><xi:include href="extras/example.xml" parse="text"/></programlisting>
+        </example>
     </chapter>
 
     <index/>
