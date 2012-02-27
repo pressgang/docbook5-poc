@@ -33,7 +33,7 @@
     </preface>
 
     <chapter xml:id="myChapter">
-        <title>Chapter 1</title>
+        <title>Sample Chapter</title>
         <para>
             Blah blah blah...
         </para>
@@ -49,8 +49,86 @@
             </info>
             <programlisting language="XML"><xi:include href="extras/example.xml" parse="text"/></programlisting>
         </example>
+
+        <orderedlist>
+            <listitem>
+                <para>
+                    Here is a particular ordered list item
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Here is another ordered list item
+                </para>
+            </listitem>
+        </orderedlist>
+
+        <variablelist>
+            <varlistentry>
+                <term>Some var-list entry term</term>
+                <listitem>
+                    <para>Its related definition</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>A second var-list entry term</term>
+                <listitem>
+                    <para>Its related definition</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+
+        <tip>
+            <para>
+                Here is a tip.
+            </para>
+        </tip>
+
+        <note>
+            <para>
+                Here is a note.
+            </para>
+        </note>
+
+        <warning>
+            <para>
+                Here is a warn
+            </para>
+        </warning>
+
+        <important>
+            <para>
+                Here is a important
+            </para>
+        </important>
+
+        <section>
+            <info>
+                <title>Sample section</title>
+            </info>
+            <para>
+                Some sections are very very short
+            </para>
+        </section>
+
+        <section>
+            <info>
+                <title>Another section</title>
+            </info>
+            <para>
+                Some even more so
+            </para>
+        </section>
     </chapter>
 
+    <chapter>
+        <info>
+            <title>Another chapter</title>
+        </info>
+        <para>The most important chapter to-date...</para>
+    </chapter>
+
+    <!-- todo : indexes -->
     <index/>
 
 </book>

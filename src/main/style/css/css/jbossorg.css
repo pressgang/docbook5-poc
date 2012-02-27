@@ -78,3 +78,32 @@ hr {
 }
 
 sup {color:#999;}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/* work around problems codehighlight.css */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+pre {
+    font-family:Monaco,monospace;
+    line-height: 1.29em;
+}
+
+pre br {
+    display:none;
+}
+
+pre.JAVA {
+    line-height: 1.29em;
+}
+
+pre.XML {
+    line-height: 1.29em;
+}
+
+pre.JSP {
+    line-height: 1.29em;
+}
+
+pre.XHTML {
+    line-height: 1.29em;
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

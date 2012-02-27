@@ -31,6 +31,7 @@ apply plugin: "jdocbook"
 dependencies {
 	jdocbookXsl "net.sf.docbook:docbook-xsl:1.76.0:ns-resources@zip"
 	jdocbookXsl "org.jboss.pressgang:pressgang-highlight:2.0.1"
+	jdocbookXsl "org.jboss.pressgang:pressgang-fonts:2.0.1"
 //	jdocbookStyles "org.jboss.pressgang:pressgang-jdocbook-style:2.0.1"
 }
 
@@ -39,7 +40,7 @@ defaultTasks 'buildDocs'
 jdocbook {
     masterSourceDocumentName = 'MyDocBook5PocBook.xml'
 
-    transformerParameter( "html.stylesheet", "css/hibernate.css" );
+//    transformerParameter( "html.stylesheet", "css/hibernate.css" );
 // other ways to specify, both set completely new maps
 //    transformerParameters 'html.stylesheet': "css/hibernate.css"
 
