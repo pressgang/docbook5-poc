@@ -4,7 +4,7 @@
 # Gradle work directory
 .gradle
 
-# Build output directies
+# Build output directories
 /target
 */target
 /build
