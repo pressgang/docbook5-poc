@@ -118,6 +118,12 @@
             <para>
                 Some even more so
             </para>
+            <para>An image larger than the PDF page width below</para>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="images/bigImage.png"/>
+                </imageobject>
+            </mediaobject>
         </section>
     </chapter>
 
