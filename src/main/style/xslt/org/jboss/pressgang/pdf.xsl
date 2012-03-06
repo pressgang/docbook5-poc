@@ -309,25 +309,8 @@
         Title page support
         ###########################################################################################
     -->
+    <xsl:param name="editedby.enabled">0</xsl:param>
     <xsl:param name="titlepage.color" select="$title.color"/>
-
-    <xsl:template name="book.titlepage">
-        <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format">
-            <xsl:call-template name="book.titlepage.before.recto"/>
-            <fo:block>
-                <xsl:call-template name="book.titlepage.recto"/>
-            </fo:block>
-            <xsl:call-template name="book.titlepage.separator"/>
-            <fo:block>
-                <xsl:call-template name="book.titlepage.verso"/>
-            </fo:block>
-            <xsl:call-template name="book.titlepage.separator"/>
-            <fo:block>
-                <xsl:call-template name="book.titlepage3.recto"/>
-            </fo:block>
-            <xsl:call-template name="book.titlepage.separator"/>
-        </fo:block>
-    </xsl:template>
 
     <xsl:attribute-set name="book.titlepage.recto.style">
         <xsl:attribute name="font-family">
@@ -413,354 +396,6 @@
         <xsl:attribute name="text-align">center</xsl:attribute>
     </xsl:attribute-set>
 
-    <!--
-        From: fo/titlepage.templates.xsl
-        Reason: Switch to using chapter.titlepage.recto.style
-        Version: 1.76.1
-    -->
-    <xsl:template match="title" mode="appendix.titlepage.recto.auto.mode">
-        <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="chapter.titlepage.recto.style">
-            <xsl:call-template name="component.title.nomarkup">
-                <xsl:with-param name="node" select="ancestor-or-self::d:appendix[1]"/>
-            </xsl:call-template>
-        </fo:block>
-    </xsl:template>
-
-    <xsl:template name="component.title.nomarkup">
-        <xsl:param name="node" select="."/>
-
-        <xsl:variable name="id">
-            <xsl:call-template name="object.id">
-                <xsl:with-param name="object" select="$node"/>
-            </xsl:call-template>
-        </xsl:variable>
-
-        <xsl:variable name="title">
-            <xsl:apply-templates select="$node" mode="object.title.markup">
-                <xsl:with-param name="allow-anchors" select="1"/>
-            </xsl:apply-templates>
-        </xsl:variable>
-        <xsl:copy-of select="$title"/>
-    </xsl:template>
-
-    <!--
-        From: fo/titlepage.templates.xsl
-        Reason: Remove font size and weight overrides
-        Version: 1.76.1
-    -->
-    <xsl:template match="title" mode="chapter.titlepage.recto.auto.mode">
-        <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="chapter.titlepage.recto.style">
-            <xsl:value-of select="."/>
-        </fo:block>
-    </xsl:template>
-
-    <!--
-        From: fo/titlepage.templates.xsl
-        Reason: Remove font family, size and weight overrides
-        Version:1.76.1
-    -->
-    <xsl:template name="preface.titlepage.recto">
-        <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="preface.titlepage.recto.style"
-                  margin-left="{$title.margin.left}">
-            <xsl:call-template name="component.title.nomarkup">
-                <xsl:with-param name="node" select="ancestor-or-self::d:preface[1]"/>
-            </xsl:call-template>
-        </fo:block>
-        <xsl:choose>
-            <xsl:when test="d:prefaceinfo/d:subtitle">
-                <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:prefaceinfo/d:subtitle"/>
-            </xsl:when>
-            <xsl:when test="d:docinfo/d:subtitle">
-                <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:docinfo/d:subtitle"/>
-            </xsl:when>
-            <xsl:when test="d:info/d:subtitle">
-                <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:info/d:subtitle"/>
-            </xsl:when>
-            <xsl:when test="d:subtitle">
-                <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:subtitle"/>
-            </xsl:when>
-        </xsl:choose>
-
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:prefaceinfo/d:corpauthor"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:docinfo/d:corpauthor"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:info/d:corpauthor"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:prefaceinfo/d:authorgroup"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:docinfo/d:authorgroup"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:info/d:authorgroup"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:prefaceinfo/d:author"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:docinfo/d:author"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:info/d:author"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:prefaceinfo/d:othercredit"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:docinfo/d:othercredit"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:info/d:othercredit"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:prefaceinfo/d:releaseinfo"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:docinfo/d:releaseinfo"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:info/d:releaseinfo"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:prefaceinfo/d:copyright"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:docinfo/d:copyright"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:info/d:copyright"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:prefaceinfo/d:legalnotice"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:docinfo/d:legalnotice"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:info/d:legalnotice"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:prefaceinfo/d:pubdate"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:docinfo/d:pubdate"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:info/d:pubdate"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:prefaceinfo/d:revision"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:docinfo/d:revision"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:info/d:revision"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:prefaceinfo/d:revhistory"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:docinfo/d:revhistory"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:info/d:revhistory"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:prefaceinfo/d:abstract"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:docinfo/d:abstract"/>
-        <xsl:apply-templates mode="preface.titlepage.recto.auto.mode" select="d:info/d:abstract"/>
-    </xsl:template>
-
-    <xsl:template match="d:title" mode="book.titlepage.recto.auto.mode">
-        <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="book.titlepage.recto.style"
-                  text-align="center" font-size="34pt" space-before="18.6624pt" font-weight="bold"
-                  font-family="{$title.fontset}">
-            <xsl:call-template name="division.title">
-                <xsl:with-param name="node" select="ancestor-or-self::d:book[1]"/>
-            </xsl:call-template>
-        </fo:block>
-    </xsl:template>
-
-    <xsl:template match="d:subtitle" mode="book.titlepage.recto.auto.mode">
-        <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="book.titlepage.recto.style"
-                  text-align="center" font-size="20pt" space-before="30pt" font-family="{$title.fontset}">
-            <xsl:apply-templates select="." mode="book.titlepage.recto.mode"/>
-        </fo:block>
-    </xsl:template>
-
-    <xsl:template match="d:issuenum" mode="book.titlepage.recto.auto.mode">
-        <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="book.titlepage.recto.style"
-                  text-align="center" font-size="16pt" space-before="15.552pt" font-family="{$title.fontset}">
-            <xsl:apply-templates select="." mode="book.titlepage.recto.mode"/>
-        </fo:block>
-    </xsl:template>
-
-    <xsl:template name="book.titlepage.recto">
-        <xsl:choose>
-            <xsl:when test="d:bookinfo/d:title">
-                <xsl:apply-templates mode="book.titlepage.recto.auto.mode"
-                                     select="d:bookinfo/d:title"/>
-            </xsl:when>
-            <xsl:when test="d:info/d:title">
-                <xsl:apply-templates mode="book.titlepage.recto.auto.mode"
-                                     select="d:info/d:title"/>
-            </xsl:when>
-            <xsl:when test="d:title">
-                <xsl:apply-templates mode="book.titlepage.recto.auto.mode"
-                                     select="d:title"/>
-            </xsl:when>
-        </xsl:choose>
-
-        <xsl:apply-templates mode="book.titlepage.recto.auto.mode"
-                             select="d:bookinfo/d:issuenum"/>
-        <xsl:apply-templates mode="book.titlepage.recto.auto.mode"
-                             select="d:info/d:issuenum"/>
-        <xsl:apply-templates mode="book.titlepage.recto.auto.mode"
-                             select="d:issuenum"/>
-
-        <xsl:choose>
-            <xsl:when test="d:bookinfo/d:subtitle">
-                <xsl:apply-templates mode="book.titlepage.recto.auto.mode"
-                                     select="d:bookinfo/d:subtitle"/>
-            </xsl:when>
-            <xsl:when test="d:info/d:subtitle">
-                <xsl:apply-templates mode="book.titlepage.recto.auto.mode"
-                                     select="d:info/d:subtitle"/>
-            </xsl:when>
-            <xsl:when test="d:subtitle">
-                <xsl:apply-templates mode="book.titlepage.recto.auto.mode"
-                                     select="d:subtitle"/>
-            </xsl:when>
-        </xsl:choose>
-
-        <fo:block xsl:use-attribute-sets="book.titlepage.recto.style"
-                  font-size="14pt" space-before="15.552pt">
-            <xsl:apply-templates mode="book.titlepage.recto.auto.mode"
-                                 select="d:bookinfo/d:releaseinfo"/>
-            <xsl:apply-templates mode="book.titlepage.recto.auto.mode"
-                                 select="d:info/d:releaseinfo"/>
-        </fo:block>
-
-        <fo:block text-align="center" space-before="15.552pt">
-            <xsl:call-template name="person.name.list">
-                <xsl:with-param name="person.list"
-                                select="d:bookinfo/d:authorgroup/d:author|d:bookinfo/d:authorgroup/d:corpauthor|d:info/d:authorgroup/d:author"/>
-                <xsl:with-param name="person.type" select="'author'"/>
-            </xsl:call-template>
-        </fo:block>
-
-        <fo:block text-align="center" space-before="15.552pt">
-            <xsl:call-template name="person.name.list">
-                <xsl:with-param name="person.list"
-                                select="d:bookinfo/d:authorgroup/d:editor|d:info/d:authorgroup/d:editor"/>
-                <xsl:with-param name="person.type" select="'editor'"/>
-            </xsl:call-template>
-        </fo:block>
-
-        <fo:block text-align="center" space-before="15.552pt">
-            <xsl:call-template name="person.name.list">
-                <xsl:with-param name="person.list"
-                                select="d:bookinfo/d:authorgroup/d:othercredit|d:info/d:authorgroup/d:othercredit"/>
-                <xsl:with-param name="person.type" select="'othercredit'"/>
-            </xsl:call-template>
-        </fo:block>
-
-    </xsl:template>
-
-    <xsl:template name="book.titlepage3.recto"/>
-    <xsl:template name="book.titlepage.before.verso"/>
-    <xsl:template name="book.titlepage.separator"/>
-    <xsl:template name="book.titlepage.before.recto"/>
-
-    <!--
-        From: fo/pagesetup.xsl
-        Reason: Override colour
-        Version: 1.76.1
-    -->
-    <xsl:template name="head.sep.rule">
-        <xsl:param name="pageclass"/>
-        <xsl:param name="sequence"/>
-        <xsl:param name="gentext-key"/>
-
-        <xsl:if test="$header.rule != 0">
-            <xsl:attribute name="border-bottom-width">0.5pt</xsl:attribute>
-            <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
-            <xsl:attribute name="border-bottom-color">#4a5d75</xsl:attribute>
-        </xsl:if>
-    </xsl:template>
-
-    <!--
-        From: fo/pagesetup.xsl
-        Reason: Override colour
-        Version: 1.76.1
-    -->
-    <xsl:template name="foot.sep.rule">
-        <xsl:param name="pageclass"/>
-        <xsl:param name="sequence"/>
-        <xsl:param name="gentext-key"/>
-
-        <xsl:if test="$footer.rule != 0">
-            <xsl:attribute name="border-top-width">0.5pt</xsl:attribute>
-            <xsl:attribute name="border-top-style">solid</xsl:attribute>
-            <xsl:attribute name="border-top-color">#4a5d75</xsl:attribute>
-        </xsl:if>
-    </xsl:template>
-
-    <xsl:template match="d:author" mode="tablerow.titlepage.mode">
-        <fo:table-row>
-            <fo:table-cell>
-                <fo:block>
-                    <xsl:call-template name="gentext">
-                        <xsl:with-param name="key" select="'Author'"/>
-                    </xsl:call-template>
-                </fo:block>
-            </fo:table-cell>
-            <fo:table-cell>
-                <fo:block>
-                    <xsl:call-template name="person.name">
-                        <xsl:with-param name="node" select="."/>
-                    </xsl:call-template>
-                </fo:block>
-            </fo:table-cell>
-            <fo:table-cell>
-                <fo:block>
-                    <xsl:apply-templates select="d:email"/>
-                </fo:block>
-            </fo:table-cell>
-        </fo:table-row>
-    </xsl:template>
-
-    <xsl:template match="d:author" mode="titlepage.mode">
-        <fo:block>
-            <xsl:call-template name="person.name">
-                <xsl:with-param name="node" select="."/>
-            </xsl:call-template>
-        </fo:block>
-    </xsl:template>
-
-    <xsl:param name="editedby.enabled">0</xsl:param>
-
-    <xsl:template match="d:editor" mode="tablerow.titlepage.mode">
-        <fo:table-row>
-            <fo:table-cell>
-                <fo:block>
-                    <xsl:call-template name="gentext">
-                        <xsl:with-param name="key" select="'Editor'"/>
-                    </xsl:call-template>
-                </fo:block>
-            </fo:table-cell>
-            <fo:table-cell>
-                <fo:block>
-                    <xsl:call-template name="person.name">
-                        <xsl:with-param name="node" select="."/>
-                    </xsl:call-template>
-                </fo:block>
-            </fo:table-cell>
-            <fo:table-cell>
-                <fo:block>
-                    <xsl:apply-templates select="d:email"/>
-                </fo:block>
-            </fo:table-cell>
-        </fo:table-row>
-    </xsl:template>
-
-    <xsl:template match="d:othercredit" mode="tablerow.titlepage.mode">
-        <fo:table-row>
-            <fo:table-cell>
-                <fo:block>
-                    <xsl:call-template name="gentext">
-                        <xsl:with-param name="key" select="'translator'"/>
-                    </xsl:call-template>
-                </fo:block>
-            </fo:table-cell>
-            <fo:table-cell>
-                <fo:block>
-                    <xsl:call-template name="person.name">
-                        <xsl:with-param name="node" select="."/>
-                    </xsl:call-template>
-                </fo:block>
-            </fo:table-cell>
-            <fo:table-cell>
-                <fo:block>
-                    <xsl:apply-templates select="d:email"/>
-                </fo:block>
-            </fo:table-cell>
-        </fo:table-row>
-    </xsl:template>
-
-    <xsl:template match="d:address">
-        <xsl:param name="suppress-numbers" select="'0'"/>
-
-        <xsl:variable name="content">
-            <xsl:choose>
-                <xsl:when test="$suppress-numbers = '0' and @linenumbering = 'numbered'
-                            and $use.extensions != '0' and $linenumbering.extension != '0'">
-                    <xsl:call-template name="number.rtf.lines">
-                        <xsl:with-param name="rtf">
-                            <xsl:apply-templates/>
-                        </xsl:with-param>
-                    </xsl:call-template>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-
-        <fo:block wrap-option='no-wrap'
-                  white-space-collapse='false'
-                  white-space-treatment='preserve'
-                  linefeed-treatment="preserve"
-                  text-align="start"
-                  xsl:use-attribute-sets="verbatim.properties">
-            <xsl:copy-of select="$content"/>
-        </fo:block>
-    </xsl:template>
 
 
     <!--
@@ -891,8 +526,7 @@
             <xsl:choose>
                 <xsl:when test="$ignore.image.scaling != 0">0</xsl:when>
                 <xsl:when test="@contentwidth">0</xsl:when>
-                <xsl:when test="@contentdepth and
-@contentdepth != '100%'">0
+                <xsl:when test="@contentdepth and @contentdepth != '100%'">0
                 </xsl:when>
                 <xsl:when test="@scale">0</xsl:when>
                 <xsl:when test="@scalefit">
@@ -916,8 +550,7 @@
 
         <xsl:variable name="filename">
             <xsl:choose>
-                <xsl:when test="local-name(.) = 'graphic'
-or local-name(.) = 'inlinegraphic'">
+                <xsl:when test="local-name(.) = 'graphic' or local-name(.) = 'inlinegraphic'">
                     <!-- handle legacy graphic and inlinegraphic by new template -->
                     <xsl:call-template name="mediaobject.filename">
                         <xsl:with-param name="object" select="."/>
@@ -950,9 +583,7 @@ or local-name(.) = 'inlinegraphic'">
             <xsl:attribute name="src">
                 <xsl:call-template name="fo-external-image">
                     <xsl:with-param name="filename">
-                        <xsl:if test="$img.src.path != '' and
-not(starts-with($filename, '/')) and
-not(contains($filename, '://'))">
+                        <xsl:if test="$img.src.path != '' and not(starts-with($filename, '/')) and not(contains($filename, '://'))">
                             <xsl:value-of select="$img.src.path"/>
                         </xsl:if>
                         <xsl:value-of select="$filename"/>
@@ -1120,43 +751,6 @@ not(contains($filename, '://'))">
         <xsl:attribute name="padding-top">2pt</xsl:attribute>
         <xsl:attribute name="padding-bottom">2pt</xsl:attribute>
     </xsl:attribute-set>
-
-    <!--
-        From: fo/table.xsl
-        Reason: Table Header format
-        Version: 1.76.1
-    -->
-    <xsl:template name="table.cell.block.properties">
-        <!-- highlight this entry? -->
-        <xsl:if test="ancestor::d:thead or ancestor::d:tfoot">
-            <xsl:attribute name="font-weight">bold</xsl:attribute>
-            <xsl:attribute name="background-color">#4a5d75</xsl:attribute>
-            <xsl:attribute name="color">white</xsl:attribute>
-        </xsl:if>
-    </xsl:template>
-
-    <!--
-        From: fo/table.xsl
-        Reason: Table Header format
-        Version: 1.76.1
-    -->
-    <!-- customize this template to add row properties -->
-    <xsl:template name="table.row.properties">
-        <xsl:variable name="bgcolor">
-            <xsl:call-template name="dbfo-attribute">
-                <xsl:with-param name="pis" select="processing-instruction('dbfo')"/>
-                <xsl:with-param name="attribute" select="'bgcolor'"/>
-            </xsl:call-template>
-        </xsl:variable>
-        <xsl:if test="$bgcolor != ''">
-            <xsl:attribute name="background-color">
-                <xsl:value-of select="$bgcolor"/>
-            </xsl:attribute>
-        </xsl:if>
-        <xsl:if test="ancestor::d:thead or ancestor::d:tfoot">
-            <xsl:attribute name="background-color">#4a5d75</xsl:attribute>
-        </xsl:if>
-    </xsl:template>
 
 
     <!--
