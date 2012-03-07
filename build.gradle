@@ -5,16 +5,7 @@ buildscript {
       mavenRepo name: "jboss", url: "http://repository.jboss.org/nexus/content/groups/public/"
   }
   dependencies {
-      classpath( "org.jboss.jdocbook:gradle-jdocbook:1.2.0-SNAPSHOT" ) {
-		  exclude group: 'net.sf.docbook'
-	  }
-/*
-	  classpath "org.jboss.pressgang:pressgang-highlight:2.0.1"
-//	  classpath( "org.jboss.pressgang:pressgang-xslt-ns:2.0.1" ) {
-//		  exclude group: 'net.sf.docbook'
-//	  }
-//	  classpath "org.jboss.pressgang:pressgang-fonts:2.0.1"
-*/
+      classpath "org.jboss.jdocbook:gradle-jdocbook:1.2.0-SNAPSHOT"
   }
 }
 
@@ -29,10 +20,10 @@ apply plugin: "base"
 apply plugin: "jdocbook"
 
 dependencies {
-	jdocbookXsl "net.sf.docbook:docbook-xsl:1.76.0:ns-resources@zip"
-	jdocbookXsl "org.jboss.pressgang:pressgang-highlight:2.0.1"
-	jdocbookXsl "org.jboss.pressgang:pressgang-fonts:2.0.1"
-//	jdocbookStyles "org.jboss.pressgang:pressgang-jdocbook-style:2.0.1"
+    pressgangVersion = '3.0.0-SNAPSHOT'
+    jdocbookXsl "org.jboss.pressgang:pressgang-xslt-ns:${pressgangVersion}"
+    jdocbookXsl "org.jboss.pressgang:pressgang-fonts:${pressgangVersion}"
+    jdocbookStyles "org.jboss.pressgang:pressgang-jdocbook-style:${pressgangVersion}"
 }
 
 defaultTasks 'buildDocs'
@@ -57,17 +48,6 @@ jdocbook {
 	}
 	format('pdf') {
         stylesheet = "classpath:/xslt/org/jboss/pressgang/pdf.xsl"
-	}
-}
-
-// stage the local styles...
-
-stageStyles.doLast {
-	logger.lifecycle( "Staging local style resources")
-	copy {
-		into project.file( "${project.buildDir}/docbook/stage" )
-		from project.file( 'src/main/style' )
-		includeEmptyDirs = false
 	}
 }
 
